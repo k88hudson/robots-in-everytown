@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd butter
+node make
+cd ..
+mkdir -p public/butter
+cp -r butter/* public/butter

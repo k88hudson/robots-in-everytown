@@ -1,0 +1,23 @@
+{
+  "server" : {
+    "bindIP" : "localhost",
+    "bindPort" : "7777"
+  },
+  "logger" : {
+    "format" : "dev"
+  },
+  "session" : {
+    "secret": "thisisareallyreallylongsecrettoencryptcookies"
+  },
+  "dirs": {
+    "wwwRoot": "public",
+    "templates": "butter/templates",
+    "publish": "public/view",
+    "publishPrefix": "http://localhost:7777/view"
+  },
+  "environment": {
+    "mode": "production"
+  },
+  "templates": {
+  }
+}
