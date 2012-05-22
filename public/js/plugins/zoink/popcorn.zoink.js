@@ -130,6 +130,7 @@
           document.head.appendChild(styleSheet);
   
         }
+        //TODO: if not jquery add jquery
 
         if ( !target && Popcorn.plugin.debug ) {
           throw new Error( "target container doesn't exist" );
@@ -137,10 +138,6 @@
         
         speechBubble( target, options );
         options.callback && options.callback( options._container );
-
-        this.cue(options.start + 1, function(){
-          console.log("ding");
-        });
 
         function speechBubble( target, args ) {
           !args && ( args = {} );
@@ -157,6 +154,11 @@
           container.style.width = width + "px";
           container.classList.add("pop");
 
+          // BUTTER ONLY CODE!!!
+          if( window.Butter ) {
+            $ && $(container).draggable();
+          }
+          
           target.appendChild( container );
 
           if( typeof args.text === "string" ) {
