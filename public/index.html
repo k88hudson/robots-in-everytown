@@ -5,7 +5,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
     <script src="butter/src/butter.js" data-butter-exclude /></script>
-    <script type="text/javascript" src="test.js" data-butter-exclude /></script>
+    <script type="text/javascript" src="main.js" data-butter-exclude /></script>
     <style>
         #main, .content-div {
           float: left;
@@ -25,6 +25,9 @@
         #main {
           min-width: 300px;
           min-height: 200px;
+        }
+        div[data-butter="target"] {
+          position: relative;
         }
         video {
           position: relative;
