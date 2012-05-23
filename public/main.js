@@ -56,7 +56,11 @@ document.addEventListener( "DOMContentLoaded", function( e ){
             e.preventDefault();
           }, false);
           window.$ && $( _container ).resizable({
+            start: function(event, ui) {
+              _container.style.border = "2px dashed #CCC";
+            },
             stop: function(event, ui) {
+              _container.style.border = "";
               trackEvent.update({ height: ui.size.height + "px", width: ui.size.width + "px" })
             }
           }).draggable({

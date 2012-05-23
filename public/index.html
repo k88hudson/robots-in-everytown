@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="css/fonts/digital-strip.css">
     <link rel="stylesheet" href="css/fonts/comic-fx.css">
+    <link rel="stylesheet" href="css/icons/glyphish_custom  .css">
     <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>-->
     <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
     <script src="butter/src/butter.js" data-butter-exclude /></script>
@@ -21,20 +22,24 @@
         }
         *[contenteditable=true]:focus{ outline: none;}
 
+        .ui-resizable:hover .ui-resizable-handle {
+          background-image: url(css/icons/ui-icons-blue.png);
+        }
         .ui-resizable-handle {
           position: absolute;
           font-size: 0.1px;
           display: block;
-          background: red;
+          background: #EEE;
+          background-image: url(css/icons/ui-icons.png);
+          background-position: -64px -224px;
           }
-
-          .ui-resizable-se {
-            cursor: se-resize;
-            width: 20px;
-            height: 20px;
-            right: 1px;
-            bottom: 1px;
-          }
+        .ui-resizable-se {
+          cursor: se-resize;
+          width: 16px;
+          height: 16px;
+          right: -5px;
+          bottom: -5px;
+        }
 
         /*MAIN*/
         #main, .content-div {
