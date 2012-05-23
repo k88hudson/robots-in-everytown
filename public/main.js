@@ -11,31 +11,82 @@ document.addEventListener( "DOMContentLoaded", function( e ){
     // This function runs only once, when butter initializes. 
     // You should create tracks & starting track events here.
 
-      //Before adding tracks, add editing functionality:
+      //Add tracks
+       var track = media.addTrack( "Track1" );
+        media.addTrack( "Track" + Math.random() );
+        media.addTrack( "Track" + Math.random() );
+
+        var event = track.addTrackEvent({
+          type: "text",
+          popcornOptions: {
+            start: 0,
+            end: 3,
+            text: "test",
+            target: "Area1"
+          }
+        });
+
+        butter.tracks[ 2 ].addTrackEvent({ 
+          type: "zoink",
+          popcornOptions: {
+            start: 0,
+            end: 2,
+            text: "hello world",
+            target: "Area2"
+          }
+        });
+        
+        //Callback
+        callback && callback();
+    }
+
+    t.initCallback = function(){
+    // This function runs after butter first initializes.
+      t.showTray( true );
+    }
+
+    t.butterMediaLoaded = function( butter, media, popcorn ) {
+    // This function runs every time the media source changes, or a project is loaded.
+
+    //Prevent duplication of event listeners
+      butter.unlisten("trackeventadded", updateFunction);
+      butter.unlisten("trackeventupdated", updateFunction);
+
+    //Apply the editing functions to the existing track events
+      t.each(t.butter.orderedTrackEvents, function(trackEvent){
+        updateFunction(trackEvent);
+      });
+
+    //Add listeners for future track events.
       butter.listen("trackeventadded", updateFunction);
       butter.listen("trackeventupdated", updateFunction);
 
       function updateFunction(e) {
         var trackEvent,
-            _container,
+            _container = null,
             _textEls;
 
         if (e.type==="trackeventadded") { trackEvent = e.data; }
         else if (e.type==="trackeventupdated") { trackEvent = e.target; }
+        else { trackEvent = e; }
 
         trackEvent.popcornTrackEvent = popcorn.getTrackEvent( popcorn.getLastTrackEventId() ); //Store a reference
         _container = trackEvent.popcornTrackEvent._container;
         if (!_container ) { return; }
 
-        //Make text editable in-line
+      
         if( trackEvent.type === "footnote" || trackEvent.type === "text" ) {
           trackEvent.view.listen("trackeventdoubleclicked", function(){
-            var target = document.getElementById( trackEvent.popcornOptions.target );
             t._editing = trackEvent;
-            editor.makeContentEditable( t.children( target, function(el) { return (el.innerHTML === trackEvent.popcornOptions.text); }) );
-            t.debug && console.log( t.name + ": Editing t._editing = (" + t._editing.id + ")", t._editing );      
+            editor.makeContentEditable( _container );
+          });
+          _container.addEventListener("dblclick", function(e){
+            t._editing = trackEvent;
+            editor.makeContentEditable( _container );
+            t.debug && console.log( t.name + ": Editing t._editing = (" + t._editing.id + ")", t._editing );  
           });
         }
+
         else if( trackEvent.type === "zoink" ) {
           _container.addEventListener("dblclick", function(e){
             t._editing = trackEvent;
@@ -51,6 +102,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
             }
           });
         }
+
         else if( trackEvent.type === "image" ) {
           trackEvent.popcornTrackEvent._image.addEventListener("mousedown", function(e){
             e.preventDefault();
@@ -121,64 +173,6 @@ document.addEventListener( "DOMContentLoaded", function( e ){
 
         }
       }
-
-      //Add edit buttons to targets
-      t.each( butter.targets, function( targetObj ){
-        var target = targetObj.element,
-            editButton = document.createElement( "button");
-        
-        editButton.className = "edit-button btn btn-icon-only";
-        editButton.innerHTML = '<span class="icon icon-pencil"></span>Edit'
-        target.appendChild( editButton );
-
-        editButton.addEventListener( "click", function(e) {
-          var trackEvent = t.getTrackEvents({ target: targetObj.elementID, isActive: true });
-          var trackEventTarget =  t.children( target, function(el) { return (el.innerHTML === trackEvent.data.popcornOptions.text); });
-          console.log("editing...", trackEvent);
-          t._editing = trackEvent;
-          editor.makeContentEditable( trackEventTarget );
-          t.debug && console.log( t.name + ": Editing t._editing = (" + t._editing.id + ")", t._editing );  
-        }, false);
-      });
-
-      //Add tracks
-       var track = media.addTrack( "Track1" );
-        media.addTrack( "Track" + Math.random() );
-        media.addTrack( "Track" + Math.random() );
-
-        var event = track.addTrackEvent({
-          type: "text",
-          popcornOptions: {
-            start: 0,
-            end: 3,
-            text: "test",
-            target: "Area1"
-          }
-        });
-
-        butter.tracks[ 2 ].addTrackEvent({ 
-          type: "zoink",
-          popcornOptions: {
-            start: 0,
-            end: 2,
-            text: "hello world",
-            target: "Area2"
-          }
-        });
-        
-        //Callback
-        callback && callback();
-    }
-
-    t.initCallback = function(){
-    // This function runs after butter first initializes.
-    // It is useful for functions that should be run once after track events are added
-      t.showTray( true );
-    }
-
-    t.butterMediaLoaded = function( butter, media, popcorn ) {
-    // This function runs every time the media source changes, or a project is loaded.
-
   
     }
 

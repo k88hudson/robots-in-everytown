@@ -134,7 +134,7 @@
 
           img.src = options.src;
         } else {
-          _container.style.border = "2px dashed #CCC";
+          options._container.style.border = "2px dashed #CCC";
           img = document.createElement( "div" );
           img.style.color = "red"
           img.style.height = "100%"
