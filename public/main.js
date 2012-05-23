@@ -52,14 +52,15 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       butter.unlisten("trackeventadded", updateFunction);
       butter.unlisten("trackeventupdated", updateFunction);
 
-    //Apply the editing functions to the existing track events
-      t.each(t.butter.orderedTrackEvents, function(trackEvent){
-        updateFunction(trackEvent);
-      });
-
     //Add listeners for future track events.
       butter.listen("trackeventadded", updateFunction);
       butter.listen("trackeventupdated", updateFunction);
+
+    //Apply the editing functions to the existing track events 
+      t.each(t.butter.orderedTrackEvents, function(trackEvent){
+        var _popcornOptions = trackEvent.popcornOptions;
+        trackEvent.update( _popcornOptions );
+      });
 
       function updateFunction(e) {
         var trackEvent,

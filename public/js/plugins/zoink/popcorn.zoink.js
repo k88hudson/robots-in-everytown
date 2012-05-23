@@ -107,9 +107,9 @@
             "\/*TOP*\/\n" +
             ".speechBubble.top { margin-bottom: 15px; }\n" +
             ".speechBubble.top .canvas {  top: 1px; -webkit-transform: scale(1, -1); }\n" +
-            ".speechBubble.top.flip .canvas { -webkit-transform: scale(1, -1); }\n" +
+            ".speechBubble.top.flip .canvas { -webkit-transform: scale(-1, -1); }\n" +
             ".speechBubble.thought.top .canvas { top: -5px; }\n" +
-            ".speechBubble.long.top .canvas {  top: 2px; -webkit-transform: scale(1, -1.5); }\n" +
+            ".speechBubble.long.top .canvas {  top: 2px; -webkit-transform: scale(-1, -1.5); }\n" +
             ".speechBubble.long.top.flip .canvas { -webkit-transform: scale(1, -1.5); }\n" +
             "\n" +
             ".speechBubble .pipe{ \n" +

@@ -69,16 +69,41 @@
           position: relative;
           top: 30px;
         }
+
+        #help {
+          font-family: sans-serif;
+          padding: 10px;
+          background: #F6DC7E;
+          color: #E1182B;
+        }
+
+        #help ol, #help h3 {
+          margin: .5em 0;
+        }
+
     </style>
 </head>
 <body>
+    <div id="help" data-butter-exclude>
+      <h3>Images:</h3>
+      <ol>
+        <li>Drag an image plugin from the tray to a target.</li>
+        <li>Click and drag to move it around.</li>
+        <li>Drop an image on it from your desktop.</li>
+        <li>Try resizing it with the handle at the bottom right.</li>
+      </ol>
+      <h3>Zoinks</h3>
+      <ol>
+        <li>Click to drag.</li>
+        <li>Double click to edit text.</li>
+      </ol>
+    </div>
     <div id="video-container">
       <video id="main" data-butter="media" controls>
         <source src="butter/external/popcorn-js/test/trailer.ogv"></source>
         <source src="butter/external/popcorn-js/test/trailer.mp4"></source>
       </video>
     </div>
-    <input type="text">
     <div class="container-div">
         <div class="content-div" data-butter="target" id="Area1"></div>
         <p>Area 1</p>
