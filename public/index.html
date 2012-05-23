@@ -6,13 +6,37 @@
 
     <link rel="stylesheet" href="css/fonts/digital-strip.css">
     <link rel="stylesheet" href="css/fonts/comic-fx.css">
-
+    <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>-->
     <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
     <script src="butter/src/butter.js" data-butter-exclude /></script>
+     <script src="js/butter.template.js" data-butter-exclude /></script>
     <script type="text/javascript" src="main.js" data-butter-exclude /></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script src="js/libs/jquery-1.7.2.min.js"></script>
+    <script src="js/libs/jquery-ui.min.js"></script>
     <style>
+        /* EDITING */
+        *[contenteditable=true] {
+          background: rgba(252,234,56,.7);
+          -webkit-transition: all .3s;
+        }
+        *[contenteditable=true]:focus{ outline: none;}
+
+        .ui-resizable-handle {
+          position: absolute;
+          font-size: 0.1px;
+          display: block;
+          background: red;
+          }
+
+          .ui-resizable-se {
+            cursor: se-resize;
+            width: 20px;
+            height: 20px;
+            right: 1px;
+            bottom: 1px;
+          }
+
+        /*MAIN*/
         #main, .content-div {
           float: left;
         }
@@ -27,13 +51,11 @@
           text-align: center;
           font-family: helvetica;
           font-style: bold;
+          position: relative;
         }
         #main {
           min-width: 300px;
           min-height: 200px;
-        }
-        div[data-butter="target"] {
-          position: relative;
         }
         video {
           position: relative;
@@ -48,7 +70,7 @@
         <source src="butter/external/popcorn-js/test/trailer.mp4"></source>
       </video>
     </div>
-
+    <input type="text">
     <div class="container-div">
         <div class="content-div" data-butter="target" id="Area1"></div>
         <p>Area 1</p>

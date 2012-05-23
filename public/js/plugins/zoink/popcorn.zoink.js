@@ -153,11 +153,6 @@
           container.style.left = left;
           container.style.width = width + "px";
           container.classList.add("pop");
-
-          // BUTTER ONLY CODE!!!
-          if( window.Butter ) {
-            $ && $(container).draggable();
-          }
           
           target.appendChild( container );
 
