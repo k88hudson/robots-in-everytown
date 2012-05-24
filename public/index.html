@@ -4,9 +4,10 @@
     <title>Basic template</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/fonts/digital-strip.css">
     <link rel="stylesheet" href="css/fonts/comic-fx.css">
-    <link rel="stylesheet" href="css/icons/glyphish_custom  .css">
+    <link rel="stylesheet" href="css/icons/glyphish_custom.css">
     <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>-->
     <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
     <script src="butter/src/butter.js" data-butter-exclude /></script>
@@ -22,10 +23,10 @@
         }
         *[contenteditable=true]:focus{ outline: none;}
 
-        .ui-resizable:hover {
-          border: 2px dashed #CCC;
-        }
+        .ui-resizable-handle { display: none; }
         .ui-resizable:hover .ui-resizable-handle {
+          background: #EEE;
+          background-position: -64px -224px;
           background-image: url(css/icons/ui-icons-blue.png);
         }
         .ui-resizable-handle {
@@ -34,6 +35,7 @@
           display: block;
           background: #EEE;
           background-image: url(css/icons/ui-icons.png);
+          background: none;
           background-position: -64px -224px;
           }
         .ui-resizable-se {
@@ -44,40 +46,15 @@
           bottom: -5px;
         }
 
-        /*MAIN*/
-        #main, .content-div {
-          float: left;
-        }
-        .content-div {
-          width: 200px;
-          height: 200px;
-          border: 3px solid #000;
-          margin: 5px;
-        }
-        .container-div {
-          float: left;
-          text-align: center;
-          font-family: helvetica;
-          font-style: bold;
-          position: relative;
-        }
-        #main {
-          min-width: 300px;
-          min-height: 200px;
-        }
-        video {
-          position: relative;
-          top: 30px;
-        }
-
-        #help {
+         #help {
+          display: none;
           font-family: sans-serif;
           padding: 10px;
           background: #F6DC7E;
           color: #E1182B;
         }
 
-        #help ol, #help h3 {
+         #help ol, #help h3 {
           margin: .5em 0;
         }
 
@@ -98,20 +75,12 @@
         <li>Double click to edit text.</li>
       </ol>
     </div>
-    <div id="video-container">
+    <div id="video-container" >
+      <div id="video-overlay" data-butter="target"></div>
       <video id="main" data-butter="media" controls>
         <source src="butter/external/popcorn-js/test/trailer.ogv"></source>
         <source src="butter/external/popcorn-js/test/trailer.mp4"></source>
       </video>
     </div>
-    <div class="container-div">
-        <div class="content-div" data-butter="target" id="Area1"></div>
-        <p>Area 1</p>
-    </div>
-    <div class="container-div">
-        <div class="content-div" data-butter="target" id="Area2" data-butter-default ></div>
-        <p>Area 2</p>
-    </div>
-    <div id="target-div"></div>
 </body>
 </html>
