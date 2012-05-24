@@ -26,6 +26,28 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           }
         });
 
+        track.addTrackEvent({
+          type: "zoink",
+          popcornOptions: {
+            start: 0,
+            end: 3,
+            text: "This is true..",
+            style: "fact",
+            target: "video-overlay"
+          }
+        });
+
+        track.addTrackEvent({
+          type: "zoink",
+          popcornOptions: {
+            start: 4,
+            end: 6,
+            text: "This is false..",
+            style: "fiction",
+            target: "video-overlay"
+          }
+        });
+
         //Callback
         callback && callback();
     }
