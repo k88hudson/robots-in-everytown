@@ -26,16 +26,6 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           }
         });
 
-        butter.tracks[ 2 ].addTrackEvent({ 
-          type: "zoink",
-          popcornOptions: {
-            start: 0,
-            end: 2,
-            text: "hello world",
-            target: "Area2"
-          }
-        });
-        
         //Callback
         callback && callback();
     }
@@ -63,6 +53,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       });
 
       function updateFunction(e) {
+
         var trackEvent,
             _container = null,
             _textEls;
@@ -102,6 +93,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
                 trackEvent.update({top: ui.position.top + "px", left: ui.position.left + "px" });
             }
           });
+
         }
 
         else if( trackEvent.type === "image" ) {

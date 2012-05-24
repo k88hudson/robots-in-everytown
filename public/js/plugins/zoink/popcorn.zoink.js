@@ -144,8 +144,8 @@
 
           var container = document.createElement("div"),
               width = args.width || 200,
-              top = args.top || 0,
-              left = args.left || 0,
+              top = args.top || "50%",
+              left = args.left || "50%",
               i;
 
           container.style.position = "absolute";
@@ -155,6 +155,8 @@
           container.classList.add("pop");
           
           target.appendChild( container );
+
+          !args.text && ( args.text = "edit me" );
 
           if( typeof args.text === "string" ) {
             _makeBubble( { text: args.text, style: args.style, classes: args.classes } );
@@ -177,7 +179,7 @@
           function _makeBubble( bubbleArgs ) {
             var bubble = document.createElement("div"),
                 innerText = document.createElement("div"),
-                text = bubbleArgs.text || "",
+                text = bubbleArgs.text,
                 style = bubbleArgs.style || "speech",
                 classes = bubbleArgs.classes || "bottom right",
                 textClasses = options.textClasses;
@@ -228,12 +230,30 @@
               args.style === "thought" && drawThought( ctx );
             }
 
+            if ( args.style === "didyouknow" || args.style === "fact" || args.style === "fiction" ) {
+              addDidYouKnow( args.style );
+            }
+
             //Pipe
             if ( args.classes && args.classes.indexOf("pipe") !== -1 ){
               elem.className +=  " connected pipe";
               pipe = document.createElement("div");
               pipe.className = "pipe";
               elem.appendChild( pipe );
+            }
+
+
+            function addDidYouKnow(style){
+              var el = document.createElement("div");
+
+              el.innerHTML = "Did you know?";
+              style === "fact" && ( el.innerHTML = "Fact!" );
+              style === "fiction" && ( el.innerHTML = "Fiction!" );
+
+              el.classList.add("zoink-didyouknow");
+              style && style !== "didyouknow" && el.classList.add( style );
+              elem.appendChild( el );
+              elem.className += " didyouknow"
             }
 
             function drawSpeech(ctx) {
