@@ -50,12 +50,24 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         butter.tracks[ 1 ].addTrackEvent({ 
           type: "supertext",
           popcornOptions: {
-            start: 0,
-            end: 10,
+            start: 1,
+            end: 4,
             text: "Robots in everytown",
             innerClasses: "rumble-light blur",
             innerCSS: "font-family: 'Jolly Lodger', Georgia; font-size: 80px; text-transform: uppercase;",
-            target: "video-overlay-2"
+            target: "text-1"
+          }
+        });
+
+        butter.tracks[ 2 ].addTrackEvent({ 
+          type: "supertext",
+          popcornOptions: {
+            start: 1,
+            end: 4,
+            text: "Presented by",
+            innerClasses: "rumble-light blur",
+            innerCSS: "font-family: 'Fredericka the Great', Georgia; font-size: 30px;",
+            target: "text-2"
           }
         });
         

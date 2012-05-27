@@ -90,13 +90,13 @@ body {
   position: relative;
 }
 
-#video-overlay-2 {
+#video-text-overlay {
   top: 50px;
-  height: 200px;
   color: #FFF;
   text-align: center;
   z-index: 1001;
 }
+
 .video-overlay {
   position: absolute;
   top: 0;

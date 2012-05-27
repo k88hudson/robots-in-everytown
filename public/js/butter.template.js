@@ -167,25 +167,31 @@ Butter.Template = function() {
             currentTime = t.butter.currentTime;
 
           window.addEventListener("keydown", preventSpacebarPlay, false);
+          
           function preventSpacebarPlay(e) {
             if( e.keyCode === 32 ){
               t.butter.media[0].pause();
               t.butter.currentTime = currentTime;
+            } 
+            else if (e.keyCode === 13) {
+              if( e.shiftKey ) { return true; } 
+              e.preventDefault();
+              window.removeEventListener("keydown", preventSpacebarPlay );
+              data["text"] = htmlfy( element.innerHTML );
+              element.innerHTML = data["text"];
+              element.setAttribute("contenteditable", false);
+              if( t._editing ) {
+                t._editing.update( data );
+                t.debug && console.log( t.name + ": Changed " + JSON.stringify(data).replace(/\</g, "&lt;").replace(/\>/g, "&gt;") );
+              }
+            }
+            else if (e.keyCode === 8) {
+              return false; //Prevent accidentally deleting track events
             }
           }
 
           element.setAttribute("contenteditable", true);
-          element.addEventListener( "blur", function(e){
-            e.preventDefault();
-            window.removeEventListener("keydown", preventSpacebarPlay );
-            data["text"] = htmlfy( element.innerHTML );
-            element.innerHTML = data["text"];
-            element.setAttribute("contenteditable", false);
-            if( t._editing ) {
-              t._editing.update( data );
-              t.debug && console.log( t.name + ": Changed " + JSON.stringify(data).replace(/\</g, "&lt;").replace(/\>/g, "&gt;") );
-            }
-          }, false);
+         
         }
       }
 
