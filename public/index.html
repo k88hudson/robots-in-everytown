@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/popcorn.transitions.css">
     <link rel="stylesheet" href="css/fonts/digital-strip.css">
     <link rel="stylesheet" href="css/fonts/comic-fx.css">
+    <link href='http://fonts.googleapis.com/css?family=Jolly+Lodger' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/icons/glyphish_custom.css">
     <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>-->
     <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
@@ -59,6 +60,8 @@
           margin: .5em 0;
         }
 
+
+
     </style>
 </head>
 <body>
@@ -77,7 +80,8 @@
       </ol>
     </div>
     <div id="video-container" >
-      <div id="video-overlay" data-butter="target"></div>
+      <div id="video-overlay-2" class="video-overlay" data-butter="target"></div>
+      <div id="video-overlay" class="video-overlay" data-butter="target"></div>
       <video id="main" data-butter="media" controls>
         <source src="butter/external/popcorn-js/test/trailer.ogv"></source>
         <source src="butter/external/popcorn-js/test/trailer.mp4"></source>

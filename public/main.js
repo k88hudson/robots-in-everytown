@@ -29,10 +29,33 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         butter.tracks[ 2 ].addTrackEvent({ 
           type: "zoink",
           popcornOptions: {
-            start: 0,
+            start: 1,
             end: 2,
             text: "hello world",
             target: "Area2"
+          }
+        });
+
+        butter.tracks[ 2 ].addTrackEvent({ 
+          type: "filmgrain",
+          popcornOptions: {
+            start: 0,
+            end: 10,
+            width: 700,
+            height: 442,
+            target: "video-overlay"
+          }
+        });
+
+        butter.tracks[ 1 ].addTrackEvent({ 
+          type: "supertext",
+          popcornOptions: {
+            start: 0,
+            end: 10,
+            text: "Robots in everytown",
+            innerClasses: "rumble-light blur",
+            innerCSS: "font-family: 'Jolly Lodger', Georgia; font-size: 80px; text-transform: uppercase;",
+            target: "video-overlay-2"
           }
         });
         
@@ -76,7 +99,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         if (!_container ) { return; }
 
       
-        if( trackEvent.type === "footnote" || trackEvent.type === "text" ) {
+        if( trackEvent.type === "supertext" || trackEvent.type === "text" ) {
           trackEvent.view.listen("trackeventdoubleclicked", function(){
             t._editing = trackEvent;
             editor.makeContentEditable( _container );

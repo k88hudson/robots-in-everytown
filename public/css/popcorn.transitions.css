@@ -76,14 +76,11 @@
   -o-animation: rumble .2s infinite linear;
 }
 
-@-webkit-keyframes rumble {
-    0% {-webkit-transform: rotate(0deg);}
-    5% {-webkit-transform: translate(1px, 0px) rotate(-.1deg);}
-    15% {-webkit-transform: translate(.1px, 0px) rotate(-2deg);}
-    66% {-webkit-transform: translate(-.1px, 0px) rotate(.1deg);}
-    90% {-webkit-transform: translate(0px, -1px) rotate(0deg);}
-    95% {-webkit-transform: translate(-1px, 0px) rotate(2deg);}
-    100% {-webkit-transform: translate(0px, .1px) rotate(0deg);} 
+.rumble-light {
+  display: inline-block;
+  -webkit-animation: rumblelight .05s infinite linear;
+  -moz-animation: rumblelight .05s infinite linear;
+  -o-animation: rumblelight .05s infinite linear;
 }
 
 @-webkit-keyframes flicker {
@@ -106,6 +103,23 @@
     100% {opacity: .4;}
 }
 
+@-webkit-keyframes rumble {
+    0% {-webkit-transform: rotate(0deg);}
+    5% {-webkit-transform: translate(1px, 0px) rotate(-.1deg);}
+    15% {-webkit-transform: translate(.1px, 0px) rotate(-2deg);}
+    66% {-webkit-transform: translate(-.1px, 0px) rotate(.1deg);}
+    90% {-webkit-transform: translate(0px, -1px) rotate(0deg);}
+    95% {-webkit-transform: translate(-1px, 0px) rotate(2deg);}
+    100% {-webkit-transform: translate(0px, .1px) rotate(0deg);} 
+}
+
+@-webkit-keyframes rumblelight {
+    0% {-webkit-transform: rotate(0deg);}
+    90% {-webkit-transform: translate(0px, -2px) rotate(0deg);}
+    95% {-webkit-transform: translate(-1px, 0px) rotate(1deg);}
+    100% {-webkit-transform: translate(0px, 1px) rotate(0deg);} 
+}
+
 @-moz-keyframes rumble {
     0% {-moz-transform: rotate(0deg);}
     5% {-moz-transform: translate(1px, 0px) rotate(-.1deg);}
@@ -115,6 +129,14 @@
     95% {-moz-transform: translate(-1px, 0px) rotate(2deg);}
     100% {-moz-transform: translate(0px, .1px) rotate(0deg);} 
 }
+
+@-moz-keyframes rumblelight {
+    0% {-webkit-transform: rotate(0deg);}
+    90% {-webkit-transform: translate(0px, -2px) rotate(0deg);}
+    95% {-webkit-transform: translate(-1px, 0px) rotate(1deg);}
+    100% {-webkit-transform: translate(0px, 1px) rotate(0deg);} 
+}
+
 
 @-moz-keyframes flicker {
     0% {opacity: .4;}
