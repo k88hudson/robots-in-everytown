@@ -155,7 +155,7 @@
           container.classList.add("pop");
           
           target.appendChild( container );
-
+          if(!args.text) { args.text = "edit me"; }
           if( typeof args.text === "string" ) {
             _makeBubble( { text: args.text, style: args.style, classes: args.classes } );
           }

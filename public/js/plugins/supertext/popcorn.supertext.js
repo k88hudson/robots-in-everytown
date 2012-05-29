@@ -61,11 +61,6 @@
             type: "text",
             label: "Inner CSS"
           },
-          innerDivStyles: {
-            elem: "input",
-            type: "text",
-            label: "Inner Div CSS"
-          },
           innerClasses: {
             elem: "input",
             type: "text",
@@ -174,6 +169,11 @@
         
       options._container = document.createElement( "div" );
       options._container.className = options.baseClass + " " + options.inactiveClass;
+
+      //Stupid hack for f*d up fonts
+      if( options.innerClasses &&  options.innerClasses.indexOf("padWithSpaces") !== -1 ) {
+        options.text.indexOf("&nbsp;&nbsp;") === -1 && ( options.text = "&nbsp;&nbsp;" + options.text + "&nbsp;&nbsp;" );
+      }
 
       innerDivStyles = "";
       options.innerCSS && ( innerDivStyles += ' style="'+ options.innerCSS + '"');

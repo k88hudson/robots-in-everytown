@@ -16,16 +16,6 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         media.addTrack( "Track" + Math.random() );
         media.addTrack( "Track" + Math.random() );
 
-        var event = track.addTrackEvent({
-          type: "text",
-          popcornOptions: {
-            start: 0,
-            end: 3,
-            text: "test",
-            target: "Area1"
-          }
-        });
-
         butter.tracks[ 2 ].addTrackEvent({ 
           type: "zoink",
           popcornOptions: {
@@ -64,12 +54,44 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           popcornOptions: {
             start: 1,
             end: 4,
-            text: "Presented by",
+            text: "DIRECTED AND PRODUCED By",
             innerClasses: "rumble-light blur",
-            innerCSS: "font-family: 'Fredericka the Great', Georgia; font-size: 30px;",
+            innerCSS: "font-family: Fredericka the Great', Georgia; font-size: 50px;",
             target: "text-2"
           }
         });
+
+         butter.tracks[ 0 ].addTrackEvent({ 
+          type: "supertext",
+          popcornOptions: {
+            start: 1,
+            end: 4,
+            text: "Jane Smith",
+            innerClasses: "rumble-light blur padWithSpaces",
+            innerCSS: "font-family: 'lovers-quarrel', Georgia; font-size: 100px; margin: 0 20px",
+            target: "text-3"
+          }
+        });
+
+         /*
+
+        butter.tracks[ 1 ].addTrackEvent({ 
+          type: "googlemap",
+          popcornOptions: {
+              start: 5,
+              end: 15,
+              type: "STREETVIEW",
+              target: "video-overlay",
+              location: "32 Tromely Drive",
+              zoom: "1",
+              heading: "180",
+              pitch: "1",
+              interval: 1000,
+              tween: "York university"
+          }
+        });
+
+*/
         
         //Callback
         callback && callback();
