@@ -4,6 +4,7 @@
     <title>Basic template</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
+    <link rel="stylesheet" href="css/normalise.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/popcorn.transitions.css">
     <link rel="stylesheet" href="css/fonts/digital-strip.css">
@@ -23,7 +24,7 @@
     <style>
         /* EDITING */
         *[contenteditable=true] {
-          background: rgba(252,234,56,.7);
+          border: 1px solid  rgba(252,234,56,.7);
           -webkit-transition: all .3s;
         }
         *[contenteditable=true]:focus{ outline: none;}
@@ -63,6 +64,7 @@
           margin: .5em 0;
         }
 
+        #title1 { border: 1px solid red; }
 
 
     </style>
@@ -83,12 +85,11 @@
       </ol>
     </div>
     <div id="video-container" >
-      <div id="video-text-overlay" class="video-overlay">
-          <div id="text-1" data-butter="target"></div>
-          <div id="text-2" data-butter="target"></div>
-          <div id="text-3" data-butter="target"></div>
+      <div id="video-overlay" class="video-overlay" data-butter="target">
+        <div id="title1"></div>
+        <div id="title2"></div>
+        <div id="title3"></div>
       </div>
-      <div id="video-overlay" class="video-overlay" data-butter="target"></div>
       <video id="main" data-butter="media" controls>
         <source src="media/robotsdraft640x480.ogv"></source>
         <source src="media/robotsdraft640x480.ogv"></source>

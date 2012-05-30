@@ -169,10 +169,12 @@ Butter.Template = function() {
           window.addEventListener("keydown", preventSpacebarPlay, false);
           
           function preventSpacebarPlay(e) {
+        
             if( e.keyCode === 32 ){
               t.butter.media[0].pause();
               t.butter.currentTime = currentTime;
             } 
+
             else if (e.keyCode === 13) {
               if( e.shiftKey ) { return true; } 
               e.preventDefault();
@@ -186,6 +188,7 @@ Butter.Template = function() {
               }
             }
             else if (e.keyCode === 8) {
+              e.cancelBubble = true;
               return false; //Prevent accidentally deleting track events
             }
           }

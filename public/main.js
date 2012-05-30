@@ -25,7 +25,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
             target: "Area2"
           }
         });
-
+/*
         butter.tracks[ 2 ].addTrackEvent({ 
           type: "filmgrain",
           popcornOptions: {
@@ -37,39 +37,55 @@ document.addEventListener( "DOMContentLoaded", function( e ){
           }
         });
 
+        butter.tracks[ 0 ].addTrackEvent({ 
+          type: "supertext",
+          popcornOptions: {
+            start: 0,
+            end: 4,
+            text: "Robots in everytown",
+            containerID: "title1",
+            containerClasses: "titlecard",
+            innerClasses: "rumble-light blur",
+            innerCSS: "font-family: 'Jolly Lodger', Georgia; font-size: 80px; text-transform: uppercase;",
+            target: "video-overlay"
+          }
+        });
+*/
+        
+        butter.tracks[ 0 ].addTrackEvent({ 
+          type: "supertext",
+          popcornOptions: {
+            start: 0,
+            end: 4, 
+          }
+        });
+
+
         butter.tracks[ 1 ].addTrackEvent({ 
           type: "supertext",
           popcornOptions: {
-            start: 1,
-            end: 4,
-            text: "Robots in everytown",
-            innerClasses: "rumble-light blur",
-            innerCSS: "font-family: 'Jolly Lodger', Georgia; font-size: 80px; text-transform: uppercase;",
-            target: "text-1"
-          }
-        });
-
-        butter.tracks[ 2 ].addTrackEvent({ 
-          type: "supertext",
-          popcornOptions: {
-            start: 1,
+            start: 0,
             end: 4,
             text: "DIRECTED AND PRODUCED By",
+            containerID: "title2",
+            containerClasses: "titlecard",
             innerClasses: "rumble-light blur",
-            innerCSS: "font-family: Fredericka the Great', Georgia; font-size: 50px;",
-            target: "text-2"
+            innerCSS: "font-family: 'Fredericka the Great', Georgia; font-size: 20px;",
+            target: "video-overlay"
           }
         });
 
-         butter.tracks[ 0 ].addTrackEvent({ 
+         butter.tracks[ 2 ].addTrackEvent({ 
           type: "supertext",
           popcornOptions: {
-            start: 1,
+            start: 0,
             end: 4,
             text: "Jane Smith",
+            containerID: "title3",
+            containerClasses: "titlecard",
             innerClasses: "rumble-light blur padWithSpaces",
             innerCSS: "font-family: 'lovers-quarrel', Georgia; font-size: 100px; margin: 0 20px",
-            target: "text-3"
+            target: "video-overlay"
           }
         });
 
@@ -122,6 +138,7 @@ document.addEventListener( "DOMContentLoaded", function( e ){
       function updateFunction(e) {
         var trackEvent,
             _container = null,
+            _innerDiv,
             _textEls;
 
         if (e.type==="trackeventadded") { trackEvent = e.data; }
@@ -133,14 +150,15 @@ document.addEventListener( "DOMContentLoaded", function( e ){
         if (!_container ) { return; }
 
       
-        if( trackEvent.type === "supertext" || trackEvent.type === "text" ) {
+        if( trackEvent.type === "supertext" || trackEvent.type === "title-top" ) {
+          _innerDiv = trackEvent.popcornTrackEvent._innerDiv;
           trackEvent.view.listen("trackeventdoubleclicked", function(){
             t._editing = trackEvent;
-            editor.makeContentEditable( _container );
+            editor.makeContentEditable( _innerDiv );
           });
           _container.addEventListener("dblclick", function(e){
             t._editing = trackEvent;
-            editor.makeContentEditable( _container );
+            editor.makeContentEditable( _innerDiv );
             t.debug && console.log( t.name + ": Editing t._editing = (" + t._editing.id + ")", t._editing );  
           });
         }

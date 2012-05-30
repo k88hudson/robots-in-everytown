@@ -1,6 +1,7 @@
 {
   "server" : {
-    "bindIP" : "50.116.52.222",
+    "bindIP" : "localhost",
+    "_bindIP" : "50.116.52.222",
     "bindPort" : "7777"
   },
   "logger" : {
@@ -13,6 +14,7 @@
     "wwwRoot": "public",
     "templates": "butter/templates",
     "publish": "public/view",
+    "publishPrefix": "http://localhost:7777/view",
     "publishPrefix": "http://katehudson.ca:7777/view"
   },
   "environment": {
