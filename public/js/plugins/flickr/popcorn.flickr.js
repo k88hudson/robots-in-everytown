@@ -63,6 +63,7 @@
     containerDiv.style.width = "100%";
     containerDiv.style.height = "100%";
     containerDiv.style.display = "none";
+    containerDiv.className = "flickr-container";
     idx++;
 
     // ensure the target container the user chose exists
@@ -176,12 +177,12 @@
     options: {
       start: {
         elem: "input",
-        type: "number",
+        type: "text",
         label: "In"
       },
       end: {
         elem: "input",
-        type: "number",
+        type: "text",
         label: "Out"
       },
       userid: {
@@ -193,7 +194,8 @@
       tags: {
         elem: "input",
         type: "text",
-        label: "Tags"
+        label: "What will stop the robots?",
+        editable: true
       },
       username: {
         elem: "input",
@@ -212,12 +214,16 @@
         elem: "input",
         type: "text",
         label: "Height",
+        "default": "150px",
+        editable: true,
         optional: true
       },
       width: {
         elem: "input",
         type: "text",
         label: "Width",
+        "default": "150px",
+        editable: true,
         optional: true
       },
       padding: {
@@ -230,11 +236,14 @@
         elem: "input",
         type: "text",
         label: "Border",
+        "default": "5px",
         optional: true
       },
       numberofimages: {
         elem: "input",
-        type: "text",
+        type: "number",
+        "default": 10,
+        editable: true,
         label: "Number of Images"
       }
     }

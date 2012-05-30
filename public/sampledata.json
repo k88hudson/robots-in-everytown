@@ -1,212 +1,4 @@
-document.addEventListener( "DOMContentLoaded", function( e ){
-  
-  (function( Butter ) {
-    var t = new Butter.Template();
-    t.name = "Robots in evertown";
-    t.config = "template.conf";
-    t.debug = true, //Comment out for production
-    editor = new t.editor();
-
-    t.butterInit = function( butter, media, popcorn, callback ) {
-    // This function runs only once, when butter initializes. 
-    // You should create tracks & starting track events here.
-
-      //Add tracks
-      butter.importProject( sampleData );
-
-        
-        //Callback
-        callback && callback();
-    }
-
-    t.initCallback = function(){
-    // This function runs after butter first initializes.
-      t.showTray( true );
-    }
-
-    t.butterMediaLoaded = function( butter, media, popcorn ) {
-    // This function runs every time the media source changes, or a project is loaded.
-
-    //Prevent duplication of event listeners
-      butter.unlisten("trackeventadded", updateFunction);
-      butter.unlisten("trackeventupdated", updateFunction);
-
-    //Add listeners for future track events.
-      butter.listen("trackeventadded", updateFunction);
-      butter.listen("trackeventupdated", updateFunction);
-
-    //Apply the editing functions to the existing track events 
-      t.each(t.butter.orderedTrackEvents, function(trackEvent){
-        var _popcornOptions = trackEvent.popcornOptions;
-        trackEvent.update( _popcornOptions );
-      });
-
-      function updateFunction(e) {
-        var trackEvent,
-            _container = null,
-            _innerDiv,
-            _textEls;
-
-        if (e.type==="trackeventadded") { trackEvent = e.data; }
-        else if (e.type==="trackeventupdated") { trackEvent = e.target; }
-        else { trackEvent = e; }
-
-        trackEvent.popcornTrackEvent = popcorn.getTrackEvent( popcorn.getLastTrackEventId() ); //Store a reference
-        _container = trackEvent.popcornTrackEvent._container;
-        if (!_container ) { return; }
-
-      
-        if( trackEvent.type === "supertext" 
-         || trackEvent.type === "title-top"
-         || trackEvent.type === "title-mid"
-         || trackEvent.type === "title-bottom" ) {
-          _innerDiv = trackEvent.popcornTrackEvent._innerDiv;
-          trackEvent.view.listen("trackeventdoubleclicked", function(){
-            t._editing = trackEvent;
-            editor.makeContentEditable( _innerDiv );
-          });
-          _container.addEventListener("dblclick", function(e){
-            t._editing = trackEvent;
-            editor.makeContentEditable( _innerDiv );
-            t.debug && console.log( t.name + ": Editing t._editing = (" + t._editing.id + ")", t._editing );  
-          });
-        }
-
-        else if( trackEvent.type === "zoink" ) {
-          _container.addEventListener("dblclick", function(e){
-            t._editing = trackEvent;
-
-            textEls = _container.querySelectorAll(".text");
-            editor.makeContentEditable( textEls );
-
-            window.$ && $(_container).draggable("disable");
-          });
-          window.$ && $( _container ).draggable({
-            stop: function(event, ui) {
-                trackEvent.update({top: ui.position.top + "px", left: ui.position.left + "px" });
-            }
-          });
-        }
-
-        else if( trackEvent.type === "image" ) {
-          trackEvent.popcornTrackEvent._image.addEventListener("mousedown", function(e){
-            e.preventDefault();
-          }, false);
-          window.$ && $( _container ).resizable({
-            start: function(event, ui) {
-              _container.style.border = "2px dashed #CCC";
-            },
-            stop: function(event, ui) {
-              _container.style.border = "";
-              trackEvent.update({ height: ui.size.height, width: ui.size.width + "px" })
-            }
-          }).draggable({
-            stop: function(event, ui) {
-                trackEvent.update({top: ui.position.top + "px", left: ui.position.left + "px" });
-            }
-          });
-
-          /* Drag and drop DataURI */
-          var canvas = document.createElement( "canvas" ),
-              context,
-              dropTarget,
-              field;
-
-          canvas.id = "grabimage";
-          canvas.style.display = "none";
-
-          dropTarget = _container;
-
-          dropTarget.addEventListener( "dragover", function( event ) {
-            event.preventDefault();
-            dropTarget.className = "dragover";
-          }, false);
-
-          dropTarget.addEventListener( "dragleave", function( event ) {
-            event.preventDefault();
-            dropTarget.className = "";
-          }, false);
-
-          dropTarget.addEventListener( 'drop', function( event ) {
-            dropTarget.className = "dropped";
-            event.preventDefault();
-            var file = event.dataTransfer.files[ 0 ],
-                imgSrc,
-                image,
-                imgURI;
-
-            if( !file ) { return; }
-
-            if( window.URL ) { 
-              imgSrc = window.URL.createObjectURL( file );
-            } else if ( window.webkitURL ) {
-              imgSrc = window.webkitURL.createObjectURL( file );
-            }
-
-            image = document.createElement( 'img' );
-            image.onload = function () {
-                canvas.width = this.width;
-                canvas.height = this.height;
-                context = canvas.getContext( '2d' );
-                context.drawImage( this, 0, 0, this.width, this.height );
-                imgURI = canvas.toDataURL();  
-                trackEvent.update( {"src" : imgURI } );
-            };
-            image.src = imgSrc;
-        
-          }, false);
-
-        }
-      }
-  
-    }
-
-    t.popcornReady = function( popcorn ) {
-    //This function runs once in butter AND once in exported projects.
-      
-    }
-
-
-    //RUN -------------------------------------
-
-    if( Butter ) {
-
-      Butter({
-        config: t.config,
-        ready: function( butter ){
-
-          butter.media[ 0 ].onReady( function(){ console.log("foo") });
-
-          function start() {
-            t.butter = butter;
-
-            t.butterMediaLoaded( butter, butter.media[ 0 ], butter.media[ 0 ].popcorn.popcorn );
-            t.debug && console.log ( t.name + ": butterMediaLoaded" );
-
-            t.popcornReady( butter.media[ 0 ].popcorn.popcorn );  
-            t.eventWrapper( butter.media[ 0 ], "canplayall" ); //if canplay or canplayall is used, it must be removed.
-
-            if( t.debug ) { t.tests(); } //tests for helpers
-          }
-
-          t.butterInit( butter, butter.media[ 0 ], butter.media[ 0 ].popcorn.popcorn, t.initCallback );
-          t.debug && console.log( t.name + ": butterInit" );
-
-          start();
-          butter.listen( "mediaready", start );
-          t.debug && ( window.t = t );
-          window.butter = butter;
-        }
-      });
-    } else {
-      t.popcornReady( Popcorn.instances[ 0 ] );
-      t.debug && console.log( t.name + ": popcornReady" );
-    }
-
-  }(window.Butter));
-}, false );
-
-var sampleData = {
+{
   "targets": [
     {
       "id": "Target0",
@@ -249,11 +41,11 @@ var sampleData = {
               "name": "TrackEvent0"
             },
             {
-              "id": "TrackEvent1",
+              "id": "TrackEvent3",
               "type": "zoink",
               "popcornOptions": {
-                "start": 4.994,
-                "end": 6.511,
+                "start": 4.993945038324666,
+                "end": 6.511170652674227,
                 "text": "hello world!",
                 "left": "465px",
                 "top": "121px",
@@ -266,7 +58,7 @@ var sampleData = {
               "name": "TrackEvent3"
             },
             {
-              "id": "TrackEvent2",
+              "id": "TrackEvent5",
               "type": "speak",
               "popcornOptions": {
                 "start": 8.686,
@@ -284,11 +76,11 @@ var sampleData = {
               "name": "TrackEvent5"
             },
             {
-              "id": "TrackEvent3",
+              "id": "TrackEvent9",
               "type": "text",
               "popcornOptions": {
-                "start": 11.321,
-                "end": 13.999,
+                "start": 11.320837276300566,
+                "end": 13.999016903249586,
                 "target": "video-overlay",
                 "text": "This image uses the vintage effect. Give it a go!",
                 "top": "100px",
@@ -306,11 +98,11 @@ var sampleData = {
               "name": "TrackEvent9"
             },
             {
-              "id": "TrackEvent4",
+              "id": "TrackEvent11",
               "type": "image",
               "popcornOptions": {
-                "start": 22.635531938777852,
-                "end": 29.767106587603113,
+                "start": 22.758384215243403,
+                "end": 29.889958864068664,
                 "target": "video-overlay",
                 "width": "240px",
                 "height": "350",
@@ -323,11 +115,11 @@ var sampleData = {
               "name": "TrackEvent11"
             },
             {
-              "id": "TrackEvent5",
+              "id": "TrackEvent12",
               "type": "zoink",
               "popcornOptions": {
-                "start": 31.806,
-                "end": 32.802,
+                "start": 31.806454376931267,
+                "end": 32.801557816302235,
                 "target": "video-overlay",
                 "text": "LOL",
                 "style": "speech",
@@ -340,11 +132,11 @@ var sampleData = {
               "name": "TrackEvent12"
             },
             {
-              "id": "TrackEvent6",
+              "id": "TrackEvent14",
               "type": "flickr",
               "popcornOptions": {
-                "start": 33.213112942461834,
-                "end": 36.493268724092054,
+                "start": 34.58905843887601,
+                "end": 37.87535683432951,
                 "target": "video-overlay",
                 "userid": "",
                 "tags": "pony horse",
@@ -366,7 +158,7 @@ var sampleData = {
           "id": "Track1",
           "trackEvents": [
             {
-              "id": "TrackEvent7",
+              "id": "TrackEvent1",
               "type": "title-mid",
               "popcornOptions": {
                 "start": 1,
@@ -388,11 +180,11 @@ var sampleData = {
               "name": "TrackEvent1"
             },
             {
-              "id": "TrackEvent8",
+              "id": "TrackEvent7",
               "type": "zoink",
               "popcornOptions": {
-                "start": 8.68,
-                "end": 10.062,
+                "start": 8.67951333229121,
+                "end": 10.061601442528664,
                 "target": "video-overlay",
                 "text": "Well, I also like dogs. And cats. Actually all animals!",
                 "style": "none",
@@ -405,11 +197,11 @@ var sampleData = {
               "name": "TrackEvent7"
             },
             {
-              "id": "TrackEvent9",
+              "id": "TrackEvent8",
               "type": "image",
               "popcornOptions": {
-                "start": 12.132,
-                "end": 14.257,
+                "start": 12.131662300973204,
+                "end": 14.257006683827244,
                 "target": "video-overlay",
                 "top": "286px",
                 "left": "425px",
@@ -425,8 +217,8 @@ var sampleData = {
               "id": "TrackEvent10",
               "type": "googlemap",
               "popcornOptions": {
-                "start": 18.569,
-                "end": 21.192,
+                "start": 18.5691215877681,
+                "end": 21.192017690307626,
                 "target": "video-overlay",
                 "type": "STAMEN-TONER",
                 "zoom": "14",
@@ -440,7 +232,7 @@ var sampleData = {
               "name": "TrackEvent10"
             },
             {
-              "id": "TrackEvent11",
+              "id": "TrackEvent13",
               "type": "zoink",
               "popcornOptions": {
                 "start": 32.066,
@@ -463,11 +255,11 @@ var sampleData = {
           "id": "Track2",
           "trackEvents": [
             {
-              "id": "TrackEvent12",
+              "id": "TrackEvent2",
               "type": "title-bottom",
               "popcornOptions": {
-                "start": 0.934,
-                "end": 4.933,
+                "start": 0.9336773011381909,
+                "end": 4.932518900091891,
                 "text": "Jane Baloney",
                 "top": "0",
                 "left": "0",
@@ -485,7 +277,7 @@ var sampleData = {
               "name": "TrackEvent2"
             },
             {
-              "id": "TrackEvent13",
+              "id": "TrackEvent6",
               "type": "zoink",
               "popcornOptions": {
                 "start": 8.661,
@@ -508,7 +300,7 @@ var sampleData = {
           "id": "Track3",
           "trackEvents": [
             {
-              "id": "TrackEvent14",
+              "id": "TrackEvent15",
               "type": "filmgrain",
               "popcornOptions": {
                 "start": "0",

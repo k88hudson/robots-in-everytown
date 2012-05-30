@@ -39,18 +39,23 @@ function transformGrain( element, w, h ){
           },
           width: {
             elem: "input",
-            type: "text",
-            label: "width",
+            type: "number",
+            label: "Width (px)",
+            "default": 700,
+            editable: true
           },
           height: {
             elem: "input",
-            type: "text",
-            label: "height",
+            type: "number",
+            label: "Height (px)",
+            "default": 480,
+            editable: true
           },
           pluginDirectory: {
             elem: "input",
             type: "text",
             label: "Plugin directory (e.g. js/filmgrain/)",
+            "default": "js/plugins/filmgrain/"
           },
           target: "video-overlay",
         }
@@ -59,7 +64,7 @@ function transformGrain( element, w, h ){
         var img,
             target = document.getElementById( options.target );
 
-        options.pluginDirectory = options.pluginDirectory || "js/plugins/filmgrain/"
+        options.pluginDirectory = options.pluginDirectory;
 
         options._img1 = document.createElement( "div" );
         options._img1.style.position = "absolute";

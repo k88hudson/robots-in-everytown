@@ -57,8 +57,7 @@ var googleCallback;
     if ( layer ) {
       map.mapTypes.set( layer, new google.maps.StamenMapType( layer ));
     }
-    
-    map.getDiv().classList.add("off");
+    map.getDiv().style.display = "none";
 
     return map;
   }
@@ -77,6 +76,8 @@ var googleCallback;
    * -Heading [optional] STREETVIEW orientation of camera in degrees relative to true north (0 north, 90 true east, ect)
    * -Pitch [optional] STREETVIEW vertical orientation of the camera (between 1 and 3 is recommended)
    * -Lat and Lng: the coordinates of the map must be present if location is not specified.
+   * -Height [optional] the height of the map, in "px" or "%". Defaults to "100%".
+   * -Width [optional] the width of the map, in "px" or "%". Defaults to "100%".
    * -Location: the adress you want the map to display, must be present if lat and lng are not specified.
    * Note: using location requires extra loading time, also not specifying both lat/lng and location will
    * cause and error.
@@ -126,8 +127,18 @@ var googleCallback;
     // this is later passed on to the maps api
     newdiv = document.createElement( "div" );
     newdiv.id = "actualmap" + i;
-    newdiv.style.width = "100%";
-    newdiv.style.height = ( target && target.clientHeight || 0 ) + "px";
+    newdiv.style.width = options.width || "100%";
+    newdiv.classList.add("googlemap-container");
+
+    // height is a little more complicated than width.
+    if ( options.height ) {
+      newdiv.style.height = options.height;
+    } else if ( target && target.clientHeight ) {
+      newdiv.style.height = target.clientHeight + "px";
+    } else {
+      newdiv.style.height = "100%";
+    }
+
     i++;
 
     // ensure the target container the user chose exists
@@ -179,8 +190,7 @@ var googleCallback;
         // ensure the map has been initialized in the setup function above
         var isMapSetup = function() {
           if ( map ) {
-            map.getDiv().classList.add("on");
-            map.getDiv().classList.remove("off");
+            map.getDiv().style.display = "block";
             // reset the location and zoom just in case the user plaid with the map
             google.maps.event.trigger( map, "resize" );
             map.setCenter( location );
@@ -351,8 +361,7 @@ var googleCallback;
         // if the map exists hide it do not delete the map just in
         // case the user seeks back to time b/w start and end
         if ( map ) {
-          map.getDiv().classList.remove("on");
-          map.getDiv().classList.add("off");
+          map.getDiv().style.display = "none";
         }
       },
       _teardown: function ( options ) {
@@ -382,18 +391,22 @@ var googleCallback;
         type: "text",
         label: "Out"
       },
-      target: "map-container",
+      target: "video-overlay",
       type: {
         elem: "select",
-        options: [ "ROADMAP", "SATELLITE", "STREETVIEW", "HYBRID", "TERRAIN" ],
+        options: [ "ROADMAP", "SATELLITE", "STREETVIEW", "HYBRID", "TERRAIN", "STAMEN-WATERCOLOR", "STAMEN-TERRAIN", "STAMEN-TONER" ],
         label: "Type",
+        "default": "STAMEN-TONER",
+        editable: true,
         optional: true
       },
       zoom: {
         elem: "input",
-        type: "text",
+        type: "number",
         label: "Zoom",
-        optional: true
+        "default": 14,
+        optional: true,
+        editable: true
       },
       lat: {
         elem: "input",
@@ -410,18 +423,22 @@ var googleCallback;
       location: {
         elem: "input",
         type: "text",
-        label: "Location"
+        label: "Location",
+        editable: true,
+        "default": "Toronto, Ontario, Canada"
       },
       heading: {
         elem: "input",
         type: "text",
         label: "Heading",
+        "default": 0,
         optional: true
       },
       pitch: {
         elem: "input",
         type: "text",
         label: "Pitch",
+        "default": 1,
         optional: true
       }
     }

@@ -167,9 +167,8 @@ Butter.Template = function() {
             currentTime = t.butter.currentTime;
 
           window.addEventListener("keydown", preventSpacebarPlay, false);
-          
+   
           function preventSpacebarPlay(e) {
-        
             if( e.keyCode === 32 ){
               t.butter.media[0].pause();
               t.butter.currentTime = currentTime;

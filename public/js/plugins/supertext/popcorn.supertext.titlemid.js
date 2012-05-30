@@ -26,7 +26,7 @@
    */
     var styleSheet, subtitleStyleSheet, subtitleContainer;
 
-    Popcorn.plugin( "title-top" , {
+    Popcorn.plugin( "title-mid" , {
 
       manifest: {
         about: {
@@ -40,7 +40,7 @@
             elem: "input",
             type: "text",
             label: "Text",
-            "default": "Robots rule",
+            "default": "DIRECTED AND PRODUCED By",
             "editable": true
           },
           start: {
@@ -67,7 +67,7 @@
             elem: "input",
             type: "text",
             label: "Container ID",
-            "default": "title1"
+            "default": "title2"
           },
           containerClasses: {
             elem: "input",
@@ -85,7 +85,7 @@
             elem: "input",
             type: "text",
             label: "Inner CSS",
-            "default": "font-family: 'Jolly Lodger', Georgia; font-size: 80px; text-transform: uppercase;"
+            "default": "font-family: 'Fredericka the Great', Georgia; font-size: 20px;"
           },
           innerClasses: {
             elem: "input",

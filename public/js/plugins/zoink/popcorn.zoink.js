@@ -29,29 +29,46 @@
           text: {
             elem: "input",
             type: "text",
-            label: "Text"
-          },
-          top: {
-            elem: "input",
-            type: "number",
-            label: "Top:"
-          },
-          left: {
-            elem: "input",
-            type: "number",
-            label: "Left:"
+            label: "Text",
+            "default": "Edit me",
+            editable: true
           },
           style: {
-            elem: "input",
+            elem: "select",
+            options: [ "speech", "thought", "none" ],
             type: "text",
-            label: "Style:"
+            label: "Style:",
+            editable: true
+          },
+          order: {
+            elem: "select",
+            options: [ 1, 2, 3 ],
+            type: "text",
+            label: "Layer order:",
+            "default": 1,
+            editable: true
           },
           classes: {
             elem: "input",
             type: "text",
-            label: "Classes:"
+            label: "Classes (top, bottom, left, right, flip, pipe, fx)",
+            editable: true
           },
-          target: "zoink-container"
+          top: {
+            elem: "input",
+            type: "text",
+            label: "Top:",
+            "default": "200px",
+            editable: true
+          },
+          left: {
+            elem: "input",
+            type: "text",
+            label: "Left:",
+            "default": "200px",
+            editable: true
+          },
+          target: "video-overlay"
         }
       },
       _setup: function( options ) {
@@ -151,11 +168,12 @@
           container.style.position = "absolute";
           container.style.top = top;
           container.style.left = left;
-          container.style.width = width + "px";
+          container.style.width = width;
+          container.style.zIndex = parseInt(options.order) + 1000;
           container.classList.add("pop");
           
           target.appendChild( container );
-          if(!args.text) { args.text = "edit me"; }
+
           if( typeof args.text === "string" ) {
             _makeBubble( { text: args.text, style: args.style, classes: args.classes } );
           }

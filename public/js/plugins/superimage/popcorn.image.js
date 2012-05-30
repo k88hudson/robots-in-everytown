@@ -33,7 +33,7 @@
         about: {
           name: "Popcorn image Plugin",
           version: "0.1",
-          author: "Scott Downe",
+          author: "Scott Downe. Modified by Kate",
           website: "http://scottdowne.wordpress.com/"
         },
         options: {
@@ -51,27 +51,32 @@
             elem: "input",
             type: "text",
             label: "width",
+            "default": "150px"
           },
           height: {
             elem: "input",
             type: "text",
             label: "height",
+            "default": "150px"
           },
           top: {
             elem: "input",
             type: "text",
             label: "top",
+            "default": "200px"
           },
           left: {
             elem: "input",
             type: "text",
             label: "left",
+            "default": "200px"
           },
-          target: "image-container",
+          target: "video-overlay",
           src: {
             elem: "input",
             type: "url",
-            label: "Source URL"
+            label: "Source URL (Or drag an image over the existing one)",
+            editable: true
           },
           text: {
             elem: "input",
@@ -88,10 +93,10 @@
         options._container = document.createElement( "div" );
         options._container.style.position = "absolute";
         options._container.style.display = "none";
-        options._container.style.width = options.width || "150px";
-        options._container.style.height = options.height || "150px";
-        options._container.style.top = options.top || "0";
-        options._container.style.left = options.left || "0";
+        options._container.style.width = options.width;
+        options._container.style.height = options.height;
+        options._container.style.top = options.top;
+        options._container.style.left = options.left;
 
 
         if ( !target && Popcorn.plugin.debug ) {
@@ -139,7 +144,7 @@
           img.style.color = "red"
           img.style.height = "100%"
           img.style.width = "100%"
-          img.innerHTML = "No image yet..."
+          img.innerHTML = "Drag an image from your desktop!"
           options._container.appendChild( img );
         }
 

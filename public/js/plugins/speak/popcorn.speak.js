@@ -27,7 +27,9 @@
           text: {
             elem: "input",
             type: "text",
-            label: "Text to speak:"
+            label: "Text to speak:",
+            "default": "I am a robot",
+            editable: true
           },
           showText: {
             elem: "input",
@@ -36,8 +38,10 @@
           },
           amplitude: {
             elem: "input",
-            type: "text",
-            label: "Amplitude:"
+            type: "number",
+            label: "Volume:",
+            "default": 50,
+            editable: true
           },
           wordgap: {
             elem: "input",
@@ -47,24 +51,23 @@
           pitch: {
             elem: "input",
             type: "number",
-            label: "Pitch:"
+            label: "Pitch:",
+            "default": 70,
+            editable: true
           },
           speed: {
             elem: "input",
             type: "number",
-            label: "Speed:"
+            label: "Speed:",
+            "default": 50,
+            editable: true
           },
           pluginPath: {
             elem: "input",
             type: "text",
             label: "Plugin path:"
           },
-          target: "image-container",
-          src: {
-            elem: "input",
-            type: "url",
-            label: "Source URL"
-          }
+          target: "video-overlay"
         }
       },
       _setup: function( options ) {

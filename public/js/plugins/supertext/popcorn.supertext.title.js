@@ -26,11 +26,11 @@
    */
     var styleSheet, subtitleStyleSheet, subtitleContainer;
 
-    Popcorn.plugin( "title-top" , {
+    Popcorn.plugin( "text" , {
 
       manifest: {
         about: {
-          name: "Popcorn titletop Plugin",
+          name: "Popcorn title Plugin",
           version: "0.1",
           author: "@k88hudson",
           website: "http://k88.ca"
@@ -40,7 +40,7 @@
             elem: "input",
             type: "text",
             label: "Text",
-            "default": "Robots rule",
+            "default": "This is my text",
             "editable": true
           },
           start: {
@@ -55,19 +55,21 @@
           },
           top: {
             elem: "input",
-            type: "number",
-            label: "Top(px)"
+            type: "text",
+            label: "Top(px)",
+            editable: true,
+            "default": "100px"
           },
           left: {
             elem: "input",
-            type: "number",
+            type: "text",
             label: "Left(px)"
           },
           containerID: {
             elem: "input",
             type: "text",
             label: "Container ID",
-            "default": "title1"
+            "default": "general-text"
           },
           containerClasses: {
             elem: "input",
@@ -85,13 +87,14 @@
             elem: "input",
             type: "text",
             label: "Inner CSS",
-            "default": "font-family: 'Jolly Lodger', Georgia; font-size: 80px; text-transform: uppercase;"
+            "default": "font-family: 'Fredericka the Great', Georgia; font-size: 60px; color: #FFF",
+            editable: true
           },
           innerClasses: {
             elem: "input",
             type: "text",
             label: "Inner Classes",
-            "default": "rumble-light blur"
+            "default": "",
           },
           baseClass: {
             elem: "input",
@@ -182,6 +185,7 @@
       options._container.className = options.baseClass + " " + options.inactiveClass;
       options._container.classList.add( options.baseClass );
       options._container.classList.add( options.inactiveClass );
+      options._container.style.top = options.top;
       options.containerClasses && ( options._container.className += " " + options.containerClasses );
 
       //Stupid hack for f*d up fonts
