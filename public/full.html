@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic template</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <link rel="stylesheet" href="css/normalise.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/popcorn.transitions.css">
+    <link rel="stylesheet" href="css/fonts/digital-strip.css">
+    <link rel="stylesheet" href="css/fonts/comic-fx.css">
+    <link rel="stylesheet" href="css/fonts/lovers-quarrel.css">
+    <link href='http://fonts.googleapis.com/css?family=Jolly+Lodger' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/icons/glyphish_custom.css">
+    <script src="https://browserid.org/include.js" type="text/javascript" data-butter-exclude></script>
+    <script src="butter/src/butter.js" data-butter-exclude /></script>
+     <script src="js/butter.template.js" data-butter-exclude /></script>
+    <script type="text/javascript" src="main2.js" data-butter-exclude /></script>
+    <script src="js/libs/jquery-1.7.2.min.js"></script>
+    <script src="js/libs/jquery-ui.min.js"></script>
+    <script src="js/libs/vintage.js"></script>
+    <style>
+        /* EDITING */
+        *[contenteditable=true] {
+          border: 1px solid  rgba(252,234,56,.7);
+          -webkit-transition: all .3s;
+        }
+        *[contenteditable=true]:focus{ outline: none;}
+
+        .ui-resizable-handle { display: none; }
+        .ui-resizable:hover .ui-resizable-handle {
+          background: #EEE;
+          background-position: -64px -224px;
+          background-image: url(css/icons/ui-icons-blue.png);
+        }
+        .ui-resizable-handle {
+          position: absolute;
+          font-size: 0.1px;
+          display: block;
+          background: #EEE;
+          background-image: url(css/icons/ui-icons.png);
+          background: none;
+          background-position: -64px -224px;
+          }
+        .ui-resizable-se {
+          cursor: se-resize;
+          width: 16px;
+          height: 16px;
+          right: -5px;
+          bottom: -5px;
+        }
+
+         #help {
+          display: none;
+          font-family: sans-serif;
+          padding: 10px;
+          background: #F6DC7E;
+          color: #E1182B;
+        }
+
+         #help ol, #help h3 {
+          margin: .5em 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="help" data-butter-exclude>
+      <h3>Images:</h3>
+      <ol>
+        <li>Drag an image plugin from the tray to a target.</li>
+        <li>Click and drag to move it around.</li>
+        <li>Drop an image on it from your desktop.</li>
+        <li>Try resizing it with the handle at the bottom right.</li>
+      </ol>
+      <h3>Zoinks</h3>
+      <ol>
+        <li>Click to drag.</li>
+        <li>Double click to edit text.</li>
+      </ol>
+    </div>
+    <div id="video-container" >
+      <div id="video-overlay" class="video-overlay" data-butter-default data-butter="target">
+        <div id="title1"></div>
+        <div id="title2"></div>
+        <div id="title3"></div>
+        <div id="general-text"></div>
+      </div>
+      <video id="main" data-butter="media" controls>
+        <source src="media/robotsdraft640x480.ogv"></source>
+        <source src="media/robotsdraft640x480.ogv"></source>
+      </video>
+    </div>
+</body>
+</html>
