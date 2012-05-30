@@ -10,7 +10,9 @@ document.addEventListener( "DOMContentLoaded", function( e ){
     t.butterInit = function( butter, media, popcorn, callback ) {
     // This function runs only once, when butter initializes. 
     // You should create tracks & starting track events here.
-
+        var track = media.addTrack( "Track1" );
+        media.addTrack( "Track" + Math.random() );
+        media.addTrack( "Track" + Math.random() );
         
         //Callback
         callback && callback();
